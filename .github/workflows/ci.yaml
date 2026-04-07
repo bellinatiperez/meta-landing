@@ -37,6 +37,12 @@ jobs:
           context: .
           push: true
           tags: ${{ env.IMAGE_NAME }}:dev-${{ steps.sha.outputs.short }}
+          build-args: |
+            NEXT_PUBLIC_COMPANY_NAME=${{ vars.NEXT_PUBLIC_COMPANY_NAME }}
+            NEXT_PUBLIC_COMPANY_CNPJ=${{ vars.NEXT_PUBLIC_COMPANY_CNPJ }}
+            NEXT_PUBLIC_COMPANY_DOMAIN=${{ vars.NEXT_PUBLIC_COMPANY_DOMAIN }}
+            NEXT_PUBLIC_COMPANY_EMAIL=${{ vars.NEXT_PUBLIC_COMPANY_EMAIL }}
+            NEXT_PUBLIC_COMPANY_DESCRIPTION=${{ vars.NEXT_PUBLIC_COMPANY_DESCRIPTION }}
 
       - name: Update IAC
         run: |
@@ -101,6 +107,12 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ needs.release-staging.outputs.new_version }}
             ${{ env.IMAGE_NAME }}:stg
+          build-args: |
+            NEXT_PUBLIC_COMPANY_NAME=${{ vars.NEXT_PUBLIC_COMPANY_NAME }}
+            NEXT_PUBLIC_COMPANY_CNPJ=${{ vars.NEXT_PUBLIC_COMPANY_CNPJ }}
+            NEXT_PUBLIC_COMPANY_DOMAIN=${{ vars.NEXT_PUBLIC_COMPANY_DOMAIN }}
+            NEXT_PUBLIC_COMPANY_EMAIL=${{ vars.NEXT_PUBLIC_COMPANY_EMAIL }}
+            NEXT_PUBLIC_COMPANY_DESCRIPTION=${{ vars.NEXT_PUBLIC_COMPANY_DESCRIPTION }}
 
       - name: Update IAC
         run: |
@@ -164,6 +176,12 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new_version }}
             ${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            NEXT_PUBLIC_COMPANY_NAME=${{ vars.NEXT_PUBLIC_COMPANY_NAME }}
+            NEXT_PUBLIC_COMPANY_CNPJ=${{ vars.NEXT_PUBLIC_COMPANY_CNPJ }}
+            NEXT_PUBLIC_COMPANY_DOMAIN=${{ vars.NEXT_PUBLIC_COMPANY_DOMAIN }}
+            NEXT_PUBLIC_COMPANY_EMAIL=${{ vars.NEXT_PUBLIC_COMPANY_EMAIL }}
+            NEXT_PUBLIC_COMPANY_DESCRIPTION=${{ vars.NEXT_PUBLIC_COMPANY_DESCRIPTION }}
 
       - name: Update IAC
         run: |
