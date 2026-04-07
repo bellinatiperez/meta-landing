@@ -41,12 +41,12 @@ jobs:
       - name: Update IAC
         run: |
           git clone https://x-access-token:${{ secrets.IAC_PAT }}@github.com/bellinatiperez/grwthy-k8s.git /tmp/iac
-          cd /tmp/iac/overlays/production/refletir
+          cd /tmp/iac/overlays/production/meta-landing
           sed -i '/name: ghcr.io\/bellinatiperez\/meta-landing/{n;s/newTag: .*/newTag: dev-${{ steps.sha.outputs.short }}/}' kustomization.yaml
           cd /tmp/iac
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add overlays/production/refletir/kustomization.yaml
+          git add overlays/production/meta-landing/kustomization.yaml
           git diff --staged --quiet || (git commit -m "chore(meta-landing): update dev image to dev-${{ steps.sha.outputs.short }}" && git push)
 
   release-staging:
@@ -105,12 +105,12 @@ jobs:
       - name: Update IAC
         run: |
           git clone https://x-access-token:${{ secrets.IAC_PAT }}@github.com/bellinatiperez/grwthy-k8s.git /tmp/iac
-          cd /tmp/iac/overlays/production/refletir
+          cd /tmp/iac/overlays/production/meta-landing
           sed -i '/name: ghcr.io\/bellinatiperez\/meta-landing/{n;s/newTag: .*/newTag: "${{ needs.release-staging.outputs.new_version }}"/}' kustomization.yaml
           cd /tmp/iac
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add overlays/production/refletir/kustomization.yaml
+          git add overlays/production/meta-landing/kustomization.yaml
           git diff --staged --quiet || (git commit -m "chore(meta-landing): update staging image to ${{ needs.release-staging.outputs.new_version }}" && git push)
 
   release:
@@ -168,12 +168,12 @@ jobs:
       - name: Update IAC
         run: |
           git clone https://x-access-token:${{ secrets.IAC_PAT }}@github.com/bellinatiperez/grwthy-k8s.git /tmp/iac
-          cd /tmp/iac/overlays/production/refletir
+          cd /tmp/iac/overlays/production/meta-landing
           sed -i '/name: ghcr.io\/bellinatiperez\/meta-landing/{n;s/newTag: .*/newTag: "${{ needs.release.outputs.new_version }}"/}' kustomization.yaml
           cd /tmp/iac
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add overlays/production/refletir/kustomization.yaml
+          git add overlays/production/meta-landing/kustomization.yaml
           git diff --staged --quiet || (git commit -m "chore(meta-landing): update production image to ${{ needs.release.outputs.new_version }}" && git push)
 
       - name: Sync main to develop
